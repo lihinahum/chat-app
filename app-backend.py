@@ -1,4 +1,4 @@
-from flask import Flask,redirect, url_for , render_template,request
+from flask import Flask, render_template, request
 import os
 from datetime import datetime
 
@@ -24,6 +24,10 @@ def chat(room):
         username = request.form.get("username")
         message = request.form.get("msg")
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        if not username:
+             return "Username is required." , 200
+        if not message:
+             return "Message is required." , 200
 
         with open(f"chats/{room}.txt", "a") as f:
             f.write(f"[{timestamp}] {username}: {message}\n")
