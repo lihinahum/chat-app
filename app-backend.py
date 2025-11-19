@@ -6,16 +6,18 @@ app = Flask(__name__)
 
 CHAT_DIR = "chats"   # env variable for chat directory
 
-
+#Implementated by #Lihi
 @app.route("/<room>")
 def room(room):
     return render_template("index.html")
 
-
+#Implementated by #Salih
 @app.route('/', methods=['GET'])
 def home():
     return render_template('index.html')
 
+
+#Implementated by #Lihi
 @app.route("/api/chat/<room>", methods=["POST", "GET"])
 def chat(room):
     if request.method == "POST":
@@ -27,7 +29,8 @@ def chat(room):
             f.write(f"[{timestamp}] {username}: {message}\n")
 
         return "Message sent", 200
-           
+    
+    #Implementated by #Salih       
     else:
         file_path = os.path.join(CHAT_DIR, f"{room}.txt")
         if not os.path.exists(file_path):
