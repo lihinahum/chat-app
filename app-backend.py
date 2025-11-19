@@ -28,11 +28,7 @@ def chat(room):
         if not username:
             return "username is required", 200
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        if not username:
-             return "Username is required." , 200
-        if not message:
-             return "Message is required." , 200
-
+        
         with open(f"chats/{room}.txt", "a") as f:
             f.write(f"[{timestamp}] {username}: {message}\n")
 
