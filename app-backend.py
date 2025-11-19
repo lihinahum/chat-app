@@ -11,6 +11,15 @@ def room(room):
 def home():
     return render_template('index.html')
 
+@app.route("/api/chat/<room>", methods=["POST", "GET"])
+def chat(room):
+    if request.method == "POST":
+        
+        return 
+    else:
+        return 
+
+
 
 if __name__ == "__main__":
     app.run()
