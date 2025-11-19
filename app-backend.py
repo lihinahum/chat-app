@@ -1,5 +1,6 @@
 from flask import Flask,redirect, url_for , render_template,request
 import os
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -18,18 +19,24 @@ def home():
 @app.route("/api/chat/<room>", methods=["POST", "GET"])
 def chat(room):
     if request.method == "POST":
-        
-        return 
+        username = request.form.get("username")
+        message = request.form.get("msg")
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        with open(f"chats/{room}.txt", "a") as f:
+            f.write(f"[{timestamp}] {username}: {message}\n")
+
+        return "Message sent", 200
+           
     else:
         file_path = os.path.join(CHAT_DIR, f"{room}.txt")
-
         if not os.path.exists(file_path):
-            return "file donest exist", 404
+            return "" , 200
     
         with open(file_path, "r", encoding="utf-8") as f:
-            print
-            return f.read()  
-
+            
+            return f.read()
+   
 
 
 if __name__ == "__main__":
