@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  mysql:
+    image: mysql:9.0.1
+    container_name: chat-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+  app:
+    build: .
+    container_name: chat-app
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      DB_NAME: ${DB_NAME}
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+volumes:
+  mysql-data:
