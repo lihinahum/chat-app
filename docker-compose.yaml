@@ -1,4 +1,6 @@
 version: "3.9"
+
+# Implemented by #Salih
 services:
   mysql:
     image: mysql:9.0.1
@@ -13,6 +15,8 @@ services:
       - mysql-data:/var/lib/mysql
     ports:
       - "3306:3306"
+
+  # Implemented by #Lihi
   app:
     build: .
     container_name: chat-app
